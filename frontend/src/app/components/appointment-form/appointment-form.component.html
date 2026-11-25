@@ -1,0 +1,45 @@
+<section class="card">
+  <h2>Book an Appointment</h2>
+  <p class="hint">All fields marked with <span class="req">*</span> are required.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="field">
+      <label for="customerName">Full Name <span class="req">*</span></label>
+      <input id="customerName" type="text" formControlName="customerName" autocomplete="name" />
+      <small class="error" *ngIf="invalid('customerName')">
+        <ng-container *ngIf="form.get('customerName')?.errors?.['required']">Name is required.</ng-container>
+        <ng-container *ngIf="form.get('customerName')?.errors?.['maxlength']">Max 120 characters.</ng-container>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="customerEmail">Email <span class="req">*</span></label>
+      <input id="customerEmail" type="email" formControlName="customerEmail" autocomplete="email" />
+      <small class="error" *ngIf="invalid('customerEmail')">
+        <ng-container *ngIf="form.get('customerEmail')?.errors?.['required']">Email is required.</ng-container>
+        <ng-container *ngIf="form.get('customerEmail')?.errors?.['email']">Invalid email format.</ng-container>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="appointmentTime">Date &amp; Time <span class="req">*</span></label>
+      <input id="appointmentTime" type="datetime-local" formControlName="appointmentTime" [min]="minDate" />
+      <small class="error" *ngIf="invalid('appointmentTime')">
+        <ng-container *ngIf="form.get('appointmentTime')?.errors?.['required']">Date &amp; time is required.</ng-container>
+        <ng-container *ngIf="form.get('appointmentTime')?.errors?.['notFuture']">Must be in the future.</ng-container>
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="notes">Notes (optional)</label>
+      <textarea id="notes" formControlName="notes" rows="3" maxlength="255"></textarea>
+    </div>
+
+    <button type="submit" [disabled]="submitting || form.invalid" class="btn-primary">
+      {{ submitting ? 'Booking…' : 'Book Appointment' }}
+    </button>
+
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error-banner" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</section>

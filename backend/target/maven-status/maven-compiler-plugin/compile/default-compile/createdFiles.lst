@@ -1,0 +1,14 @@
+com\example\booking\entity\Appointment.class
+com\example\booking\exception\ConflictException.class
+com\example\booking\exception\NotFoundException.class
+com\example\booking\config\OpenApiConfig.class
+com\example\booking\exception\ErrorResponse.class
+com\example\booking\controller\GlobalExceptionHandler.class
+com\example\booking\dto\AppointmentRequest.class
+com\example\booking\repository\AppointmentRepository.class
+com\example\booking\dto\AppointmentResponse.class
+com\example\booking\config\CorsConfig.class
+com\example\booking\BookingApplication.class
+com\example\booking\controller\AppointmentController.class
+com\example\booking\service\AppointmentService.class
+com\example\booking\service\EmailService.class

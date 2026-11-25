@@ -1,0 +1,28 @@
+<section class="card">
+  <button class="btn-link back" (click)="back()">← Back</button>
+
+  <p *ngIf="loading" class="info">Loading…</p>
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+
+  <ng-container *ngIf="appointment">
+    <h2>Appointment #{{ appointment.id }}</h2>
+
+    <dl class="detail-list">
+      <dt>Customer</dt><dd>{{ appointment.customerName }}</dd>
+      <dt>Email</dt><dd>{{ appointment.customerEmail }}</dd>
+      <dt>Time</dt><dd>{{ appointment.appointmentTime | date:'full' }}</dd>
+      <dt>Status</dt>
+      <dd>
+        <span class="badge" [class.cancelled]="appointment.status === 'CANCELLED'">
+          {{ appointment.status }}
+        </span>
+      </dd>
+      <dt>Notes</dt><dd>{{ appointment.notes || '—' }}</dd>
+      <dt>Created</dt><dd>{{ appointment.createdAt | date:'medium' }}</dd>
+    </dl>
+
+    <button class="btn-danger" *ngIf="appointment.status === 'CONFIRMED'" (click)="cancel()">
+      Cancel Appointment
+    </button>
+  </ng-container>
+</section>

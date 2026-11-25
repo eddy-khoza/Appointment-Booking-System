@@ -1,0 +1,47 @@
+<section class="card">
+  <div class="header-row">
+    <h2>Appointments</h2>
+    <button class="btn-secondary" (click)="loadAll()" [disabled]="loading">Refresh</button>
+  </div>
+
+  <div class="filter-row">
+    <input type="email" placeholder="Filter by customer email…" [(ngModel)]="emailFilter" (keyup.enter)="searchByEmail()" />
+    <button class="btn-secondary" (click)="searchByEmail()" [disabled]="loading">Search</button>
+    <button *ngIf="filterActive" class="btn-link" (click)="loadAll()">Clear filter</button>
+  </div>
+
+  <p *ngIf="loading" class="info">Loading…</p>
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+
+  <p *ngIf="!loading && !errorMessage && appointments.length === 0" class="info">
+    No appointments found.
+  </p>
+
+  <table *ngIf="!loading && appointments.length > 0" class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Customer</th>
+        <th>Email</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of appointments; trackBy: trackById">
+        <td>{{ a.id }}</td>
+        <td>{{ a.customerName }}</td>
+        <td>{{ a.customerEmail }}</td>
+        <td>{{ a.appointmentTime | date:'medium' }}</td>
+        <td>
+          <span class="badge" [class.cancelled]="a.status === 'CANCELLED'">{{ a.status }}</span>
+        </td>
+        <td>
+          <button class="btn-link" (click)="view(a.id)">View</button>
+          <button class="btn-link danger" *ngIf="a.status === 'CONFIRMED'" (click)="cancel(a.id)">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

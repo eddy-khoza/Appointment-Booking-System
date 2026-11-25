@@ -1,0 +1,17 @@
+<div class="app-shell">
+  <header class="app-header">
+    <h1>🗓️ {{ title }}</h1>
+    <nav>
+      <a routerLink="/book" routerLinkActive="active">Book</a>
+      <a routerLink="/appointments" routerLinkActive="active">Appointments</a>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="app-footer">
+    <small>© {{ 2025 }} Appointment Booking System</small>
+  </footer>
+</div>
